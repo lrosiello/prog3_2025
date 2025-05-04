@@ -228,4 +228,34 @@ public class Tree {
 		
 	}
 	
+	//OBTENER LISTA DE ELEMENTOS DE ACUERDO A UN NIVEL SOLICITADO
+	
+	public List<Integer> getElementAtLevel(int level){
+		TreeNode root = this.root;
+		int count = 0;
+		List<Integer> salida = new ArrayList<>();
+		List<TreeNode> lista = getElementAtLevel(root, level, count);
+		for (TreeNode treeNode : lista) {
+			salida.add(treeNode.getValue());
+		}
+		return salida;
+	}
+	
+	private List<TreeNode> getElementAtLevel(TreeNode nodoActual, int level, int count){
+		List<TreeNode> lista = new ArrayList<>();
+		
+		
+		if(count == level) {
+			lista.add(nodoActual);
+		}
+		
+		if(nodoActual.getLeft()!=null) {
+			lista.addAll(getElementAtLevel(nodoActual.getLeft(), level, count + 1));
+		}
+		if(nodoActual.getRight()!=null) {
+			lista.addAll(getElementAtLevel(nodoActual.getRight(), level, count + 1));
+		}
+		
+		return lista;
+	}
 }

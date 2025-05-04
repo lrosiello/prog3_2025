@@ -44,7 +44,9 @@ public class Main {
 		
 		List<Integer> listaDeFronteras = tree.getFrontera();
 		
-		System.out.println(listaDeFronteras);
+		List<Integer> listaSegunNivel = tree.getElementAtLevel(4);
+		
+		System.out.println(listaSegunNivel);
 		
 		System.out.println(altura);
 		
