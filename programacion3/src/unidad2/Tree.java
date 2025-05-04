@@ -244,18 +244,50 @@ public class Tree {
 	private List<TreeNode> getElementAtLevel(TreeNode nodoActual, int level, int count){
 		List<TreeNode> lista = new ArrayList<>();
 		
-		
-		if(count == level) {
-			lista.add(nodoActual);
+		if(nodoActual != null) {
+			if(count == level) {
+				lista.add(nodoActual);
+			}
+			
+			if(nodoActual.getLeft()!=null) {
+				lista.addAll(getElementAtLevel(nodoActual.getLeft(), level, count + 1));
+			}
+			if(nodoActual.getRight()!=null) {
+				lista.addAll(getElementAtLevel(nodoActual.getRight(), level, count + 1));
+			}
 		}
 		
-		if(nodoActual.getLeft()!=null) {
-			lista.addAll(getElementAtLevel(nodoActual.getLeft(), level, count + 1));
-		}
-		if(nodoActual.getRight()!=null) {
-			lista.addAll(getElementAtLevel(nodoActual.getRight(), level, count + 1));
-		}
 		
 		return lista;
+	}
+	
+	
+	//OBTENER SUMATORIA TOTAL DE LOS VALORES DE TODOS LOS NODOS INTERNOS
+	
+	public int getSumatoria() {
+		TreeNode root = this.root;
+		int result = 0;
+		result = getSumatoria(root, result);
+		return result;
+	}
+	
+	private int getSumatoria(TreeNode nodoActual, int result) {
+		
+		if(nodoActual!=null) {
+			
+			if(!isItALeaf(nodoActual)) {
+				result += nodoActual.getValue(); //ACUMULANDOSE +=
+			}
+			
+			if(nodoActual.getLeft()!=null) {
+				result = getSumatoria(nodoActual.getLeft(), result);
+			}
+			if(nodoActual.getRight()!=null) {
+				result = getSumatoria(nodoActual.getRight(), result);
+			}
+			
+		}
+		
+		return result;
 	}
 }

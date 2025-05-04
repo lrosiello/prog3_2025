@@ -46,9 +46,11 @@ public class Main {
 		
 		List<Integer> listaSegunNivel = tree.getElementAtLevel(4);
 		
+		int sumatoriaDeNodos = tree.getSumatoria();
+		
 		System.out.println(listaSegunNivel);
 		
-		System.out.println(altura);
+		System.out.println(sumatoriaDeNodos);
 		
 	}
 
