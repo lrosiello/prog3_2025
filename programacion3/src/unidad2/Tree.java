@@ -1,5 +1,8 @@
 package unidad2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree {
 
 	private TreeNode root;
@@ -137,7 +140,62 @@ public class Tree {
 		return nodoActual;
 	}
 
+	//OBTENER ALTURA
+	public int getHeight() {
+		TreeNode root = this.root;
+		return getHeight(root, 0);
+	}
 	
+	private int getHeight(TreeNode actual, int count) {
+	    if (actual == null) {
+	        return count - 1; 
+	    }
 
+	    int left = getHeight(actual.getLeft(), count + 1);
+	    int right = getHeight(actual.getRight(), count + 1);
+
+	    return Math.max(left, right);
+	}
+	
+	//OBTENER LA RAMA MAS LARGA
+	
+	public List<Integer> getLongestBranch(){
+		TreeNode root = this.root;
+		List<TreeNode> lista = getLongestBranch(root);
+		List<Integer> salida = new ArrayList<>();
+		for (TreeNode treeNode : lista) {
+			salida.add(treeNode.getValue());
+		}
+		return salida ;
+	}
+	
+	private List<TreeNode> getLongestBranch(TreeNode nodoActual){
+		List<TreeNode> salida = new ArrayList<>();
+		List<TreeNode> salidaIzquierda = new ArrayList<>();
+		List<TreeNode> salidaDerecha = new ArrayList<>();
+		
+		salida.add(nodoActual);
+		
+		if(!isItALeaf(nodoActual)) {
+			
+			if(nodoActual.getLeft()!= null) {
+				salidaIzquierda.addAll(getLongestBranch(nodoActual.getLeft()));
+			}
+			if(nodoActual.getRight()!= null) {
+				salidaDerecha.addAll(getLongestBranch(nodoActual.getRight()));
+			}
+			
+			
+			if(salidaIzquierda.size()>=salidaDerecha.size()) {
+				salida.addAll(salidaIzquierda);
+			}else {
+				salida.addAll(salidaDerecha);
+			}
+		}
+		
+		
+		return salida;
+		
+	}
 	
 }
