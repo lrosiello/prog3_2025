@@ -174,15 +174,15 @@ public class Tree {
 		List<TreeNode> salidaIzquierda = new ArrayList<>();
 		List<TreeNode> salidaDerecha = new ArrayList<>();
 		
-		salida.add(nodoActual);
+		salida.add(nodoActual); //ATENCION CON AGREGAR PARA QUE NO SE PIERDA LO ENCONTRADO
 		
 		if(!isItALeaf(nodoActual)) {
 			
 			if(nodoActual.getLeft()!= null) {
-				salidaIzquierda.addAll(getLongestBranch(nodoActual.getLeft()));
+				salidaIzquierda.addAll(getLongestBranch(nodoActual.getLeft())); //SIEMPRE PONER ADDALL
 			}
 			if(nodoActual.getRight()!= null) {
-				salidaDerecha.addAll(getLongestBranch(nodoActual.getRight()));
+				salidaDerecha.addAll(getLongestBranch(nodoActual.getRight())); //SIEMPRE PONER ADDALL
 			}
 			
 			
@@ -195,6 +195,36 @@ public class Tree {
 		
 		
 		return salida;
+		
+	}
+	
+	//OBTENER LISTADO DE NODOS DE FRONTERA
+	
+	public List<Integer> getFrontera(){
+		TreeNode root = this.root;
+		List<TreeNode> lista = getFrontera(root);
+		List<Integer> salida = new ArrayList<>();
+		for (TreeNode treeNode : lista) {
+			salida.add(treeNode.getValue());
+		}
+		return salida;
+	}
+	
+	private List<TreeNode> getFrontera(TreeNode nodoActual){
+		List<TreeNode> lista =  new ArrayList<>();
+		
+		if(isItALeaf(nodoActual)) {  //SI ES HOJA, ES FRONTERA
+			lista.add(nodoActual);   //ATENCION CON AGREGAR PARA QUE NO SE PIERDA LO ENCONTRADO
+		}
+		
+		if(nodoActual.getLeft()!=null) {
+			lista.addAll(getFrontera(nodoActual.getLeft())); //SIEMPRE PONER ADDALL
+		}
+		if(nodoActual.getRight()!=null) {
+			lista.addAll(getFrontera(nodoActual.getRight())); //SIEMPRE PONER ADDALL
+		}
+		
+		return lista;
 		
 	}
 	

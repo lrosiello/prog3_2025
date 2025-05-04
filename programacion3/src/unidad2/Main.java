@@ -42,7 +42,9 @@ public class Main {
 		
 		List<Integer> salidaMasLarga = tree.getLongestBranch();
 		
-		System.out.println(salidaMasLarga);
+		List<Integer> listaDeFronteras = tree.getFrontera();
+		
+		System.out.println(listaDeFronteras);
 		
 		System.out.println(altura);
 		
